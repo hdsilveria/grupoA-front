@@ -10,6 +10,7 @@
             v-model="student"
             v-model:search="searchNameStudent"
             :item-title="'name'"
+            @click="getStudent('')"
             return-object
             ></v-autocomplete>
         </div>
