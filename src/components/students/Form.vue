@@ -1,20 +1,44 @@
 <template>
     <form class="student-form" @submit.prevent="saveStudent()">
-        <v-text-field required class="student-form__field" label="Nome" variant="underlined" v-model="studentData.name"></v-text-field>
-        <v-text-field required class="student-form__field" label="E-mail" variant="underlined" v-model="studentData.email"></v-text-field>
-        <v-text-field required class="student-form__field" label="RA" variant="underlined" v-model="studentData.ra"></v-text-field>
-        <v-text-field required class="student-form__field" label="CPF" variant="underlined" v-model="studentData.cpf"></v-text-field>
+        <v-text-field 
+         label="Nome" 
+         variant="underlined" 
+         v-model="studentData.name">
+        </v-text-field>
+
+        <v-text-field 
+         label="E-mail" 
+         variant="underlined" 
+         v-model="studentData.email">
+        </v-text-field>
+
+        <v-text-field 
+         label="RA" 
+         variant="underlined" 
+         v-model="studentData.ra"
+         type="number">
+        </v-text-field>
+
+        <v-text-field 
+         label="CPF" 
+         variant="underlined" 
+         v-model="studentData.cpf">
+        </v-text-field>
 
         <div class="student-form__buttons">
-            <button class="student-form__buttons--cancel" type="reset" @click="$router.push({name: 'students'})">Cancelar</button>
-            <button class="student-form__buttons--saved" type="submit">Salvar</button>
+            <button :disabled="loading" class="student-form__buttons--cancel" type="reset" @click="$router.push({name: 'students'})">Cancelar</button>
+            <button :disabled="loading" class="student-form__buttons--saved" type="submit">Salvar</button>
         </div>
+
+        <v-snackbar :color="colorSnack" v-model="snackbar" :timeout="timeout">
+           <span>{{ messageToast }}</span> 
+        </v-snackbar>
     </form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import studantService from '@/services/students'
 
 export default defineComponent({
     props: {
@@ -36,6 +60,11 @@ export default defineComponent({
 
     data(){
         return {
+            loading: false,
+            snackbar: false,
+            colorSnack: '',
+            messageToast: '',
+            timeout: 2000,
             studentData: {
                 name: '',
                 ra: null,
@@ -48,7 +77,22 @@ export default defineComponent({
 
     methods: {
         saveStudent(){
-            console.log(this.studentData)
+            this.loading = true
+            studantService.sendStudent(this.studentData)
+                .then(res => {
+                    this.messageToast = res.data.message
+                    this.colorSnack = 'success'
+                    this.snackbar = true
+                    setTimeout(() => {
+                        this.$router.push({name: 'students'})
+                    }, 2000);
+                
+                })
+                .catch(err => {
+                    this.loading = false
+                    this.colorSnack = 'error'
+                    this.snackbar = true
+                })
         }
     }
 })

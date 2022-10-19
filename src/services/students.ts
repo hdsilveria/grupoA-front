@@ -12,5 +12,9 @@ export default {
 
     async findStudentById(id: number): Promise<any>{
         return api.get(`students/id/${id}`)
+    },
+
+    async sendStudent(body: IStudent): Promise<any>{
+        return api.post(body?.id ? `students/${body?.id}` : 'students', body)
     }
 }
