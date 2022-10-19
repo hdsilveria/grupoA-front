@@ -14,6 +14,7 @@
 
 import formStudent from '@/components/students/Form.vue'
 import { defineComponent } from 'vue';
+import studantService from '@/services/students'
 
 interface studentData {
     student: any
@@ -27,9 +28,16 @@ export default defineComponent({
     },
 
     created(){
-        setTimeout(() => {
-            this.student = { id: 1 , name: 'Paula Souza', cpf: '123456789', email: 'teste@teste.com'}
-        }, 2000);
+        this.getStudent()
+    },
+
+    methods: {
+        getStudent(){
+            let id: any = this.$route.params.id
+            studantService.findStudentById(id).then(res => {
+                return this.student = res.data[0]
+            })
+        }
     },
 
     components: {

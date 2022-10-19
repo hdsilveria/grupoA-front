@@ -11,6 +11,6 @@ export default {
     },
 
     async findStudentById(id: number): Promise<any>{
-        return api.get(`students/${id}`)
+        return api.get(`students/id/${id}`)
     }
 }

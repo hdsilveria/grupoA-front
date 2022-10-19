@@ -12,7 +12,7 @@
         v-for="item in students"
         :key="item.name"
       >
-        <td class="table-student__content__item">{{ item.id }}</td>
+        <td class="table-student__content__item">{{ item.ra }}</td>
         <td class="table-student__content__item">{{ item.name }}</td>
         <td class="table-student__content__item">{{ item.cpf }}</td>
         <td class="table-student__content__item--buttons">
