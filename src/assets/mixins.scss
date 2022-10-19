@@ -1,0 +1,8 @@
+@mixin button-action($color) {
+    color: white;
+    background: $color;
+    padding: 2px 8px;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;    
+}
