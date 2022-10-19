@@ -1,28 +1,34 @@
 <template>
     <form class="student-form" @submit.prevent="saveStudent()">
         <v-text-field 
-         label="Nome" 
-         variant="underlined" 
-         v-model="studentData.name">
+        label="Nome" 
+        variant="underlined" 
+        v-model="studentData.name"
+        required>
         </v-text-field>
 
-        <v-text-field 
-         label="E-mail" 
-         variant="underlined" 
-         v-model="studentData.email">
+        <v-text-field
+        required
+        label="E-mail" 
+        variant="underlined"
+        type="email"
+        v-model="studentData.email">
         </v-text-field>
 
-        <v-text-field 
-         label="RA" 
-         variant="underlined" 
-         v-model="studentData.ra"
-         type="number">
+        <v-text-field
+        required
+        label="RA" 
+        variant="underlined" 
+        v-model="studentData.ra"
+        type="number">
         </v-text-field>
 
-        <v-text-field 
-         label="CPF" 
-         variant="underlined" 
-         v-model="studentData.cpf">
+        <v-text-field
+        required
+        label="CPF" 
+        variant="underlined" 
+        v-model="studentData.cpf"
+        type="number">
         </v-text-field>
 
         <div class="student-form__buttons">
@@ -39,6 +45,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import studantService from '@/services/students'
+import type { IStudent } from '@/models/student';
 
 export default defineComponent({
     props: {
@@ -46,6 +53,9 @@ export default defineComponent({
             required: false,
             type: Object
         }
+    },
+
+    components: {
     },
 
     watch: {
@@ -78,7 +88,13 @@ export default defineComponent({
     methods: {
         saveStudent(){
             this.loading = true
-            studantService.sendStudent(this.studentData)
+
+            let student: IStudent = this.studentData
+            if(!student.id){
+                delete student.id
+            }
+
+            studantService.sendStudent(student)
                 .then(res => {
                     this.messageToast = res.data.message
                     this.colorSnack = 'success'
