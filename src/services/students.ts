@@ -16,5 +16,9 @@ export default {
 
     async sendStudent(body: IStudent): Promise<any>{
         return api.post(body?.id ? `students/${body?.id}` : 'students', body)
+    },
+
+    removeStudent(id: string): Promise<any> {
+        return api.delete(`students/${id}`)
     }
 }
