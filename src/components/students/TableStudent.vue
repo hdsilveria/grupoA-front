@@ -16,14 +16,24 @@
         <td class="table-student__content__item">{{ item.name }}</td>
         <td class="table-student__content__item">{{ item.cpf }}</td>
         <td class="table-student__content__item--buttons">
-          <button class="table-student__content__item--buttons--edit" 
+          <button 
+          class="table-student__content__item--buttons--edit" 
           @click="$router.push({name: 'student', params: {id: item.id}})">
             Editar
           </button>
-          <button class="table-student__content__item--buttons--delet">excluir</button>
+
+          <button 
+          class="table-student__content__item--buttons--delet"
+          @click="deleteStudent(item.id)">
+            excluir
+          </button>
         </td>
       </tr>
     </tbody>
+
+    <v-snackbar color="success" v-model="snackbar" timeout="3000">
+           <span>{{ messageToast }}</span> 
+        </v-snackbar>
   </v-table>
 </template>
 
@@ -34,6 +44,8 @@ import type { IStudent } from '@/models/student'
 interface data {
   headers: string[]
   students: IStudent[]
+  snackbar: boolean
+  messageToast: string
 }
 
   export default {
@@ -46,6 +58,8 @@ interface data {
           'Ações'
         ],
         students: [],
+        snackbar: false,
+        messageToast: ''
       }
     },
 
@@ -54,9 +68,17 @@ interface data {
     },
 
     methods: {
-      getStudents(){
+      getStudents(): void{
         studantService.getStudents().then(res => {
           this.students = res.data
+        })
+      },
+
+      deleteStudent(id: string): void{
+        studantService.removeStudent(id).then(res => {
+          this.getStudents()
+          this.snackbar = true
+          this.messageToast = res.data.message
         })
       }
     }
