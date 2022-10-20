@@ -20,6 +20,7 @@
         label="RA" 
         variant="underlined" 
         v-model="studentData.ra"
+        :disabled="student?.ra"
         type="number">
         </v-text-field>
 

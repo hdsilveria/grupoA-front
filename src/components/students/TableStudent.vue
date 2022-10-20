@@ -75,12 +75,16 @@ interface data {
       },
 
       deleteStudent(id: string): void{
-        studantService.removeStudent(id).then(res => {
-          this.getStudents()
-          this.snackbar = true
-          this.messageToast = res.data.message
-        })
+        if (window.confirm("Tem certeza que deseja apagar?")) {
+          studantService.removeStudent(id).then(res => {
+            this.getStudents()
+            this.snackbar = true
+            this.messageToast = res.data.message
+          })
+        }
       }
+
+
     }
   }
 </script>
