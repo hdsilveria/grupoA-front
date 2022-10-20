@@ -30,4 +30,11 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach(async (to, from, next) => {
+ var token = JSON.stringify(localStorage.getItem('token'))
+  if(to.name == 'login' && token !== 'null') next('/alunos')
+  if(token === 'null' && to.name !== 'login') next('/')
+  next()
+});
+
 export default router

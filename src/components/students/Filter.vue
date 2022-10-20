@@ -42,7 +42,6 @@ export default {
         },
 
         student(val){
-            console.log(val.id)
             this.$router.push({name: 'student', params: {id: val.id}})
         }
     },

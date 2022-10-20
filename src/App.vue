@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main class="app">
-      <SideBar />
+      <SideBar v-if="$route.path !== '/'" />
       <div class="app__content">
         <router-view />
       </div>

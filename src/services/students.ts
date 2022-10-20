@@ -20,5 +20,9 @@ export default {
 
     removeStudent(id: string): Promise<any> {
         return api.delete(`students/${id}`)
+    },
+
+    login(user: any): Promise<any> {
+        return api.post('auth/login', user)
     }
 }

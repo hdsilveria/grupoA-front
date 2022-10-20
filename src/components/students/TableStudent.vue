@@ -32,8 +32,8 @@
     </tbody>
 
     <v-snackbar color="success" v-model="snackbar" timeout="3000">
-           <span>{{ messageToast }}</span> 
-        </v-snackbar>
+      <span>{{ messageToast }}</span> 
+    </v-snackbar>
   </v-table>
 </template>
 
