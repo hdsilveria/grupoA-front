@@ -1,9 +1,9 @@
 <template>
     <div class="sidebar">
-        <header class="sidebar__header">{{$route.name}}</header>
+        <header class="sidebar__header">Módulo Acadêmico</header>
         <ul>
             <li v-for="option in options" :key="option.value" class="sidebar__option">
-                <router-link :to="option.path">{{option.value}}</router-link>
+                <router-link :to="option.path" class="sidebar__option__link">{{option.value}}</router-link>
             </li>
         </ul>
     </div>
@@ -48,11 +48,16 @@ export default defineComponent({
         }
         
         &__option {
-            padding: 7px 20px;
             color: rgb(87, 87, 87);
             font-size: 14pt;
             font-weight: 600;
             transition: 0.6s;
+            display: flex;
+
+            &__link {
+                padding: 7px 20px;
+                width: 100%;
+            }
 
             &:hover {
                 background-color: rgb(87, 87, 87);
