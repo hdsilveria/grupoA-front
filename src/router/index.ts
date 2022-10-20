@@ -2,14 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import listStudents from "@/views/ListStudents.vue"
 import newStudents from "@/views/NewStudent.vue"
 import EditStudents from "@/views/EditStudent.vue"
+import Login from '@/views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/', 
-      redirect: '/alunos'
-    },
     {
       path: '/alunos',
       name: 'students',
@@ -24,6 +21,11 @@ const router = createRouter({
       path: '/novo-aluno',
       name: 'newStudents',
       component: newStudents,
+    },
+    {
+      path: '/',
+      name: 'login',
+      component: Login,
     }
   ]
 })
